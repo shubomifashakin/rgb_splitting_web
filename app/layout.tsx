@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "@/components/Providers/ThemeProvider";
 
 import "./globals.css";
+import QueryProvider from "@/components/Providers/QueryClientProvider";
 
 const InterFont = Inter({
   subsets: ["latin"],
@@ -26,14 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <ThemeProvider>
-        <html lang="en">
-          <body className={`${InterFont.className} antialiased`}>
-            {children}
-            <Toaster />
-          </body>
-        </html>
-      </ThemeProvider>
+      <QueryProvider>
+        <ThemeProvider>
+          <html lang="en">
+            <body className={`${InterFont.className} antialiased`}>
+              {children}
+              <Toaster />
+            </body>
+          </html>
+        </ThemeProvider>
+      </QueryProvider>
     </ClerkProvider>
   );
 }

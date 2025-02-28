@@ -1,21 +1,26 @@
 "use client";
+
 import { createContext, ReactNode, useState, useEffect } from "react";
 
 export const ThemeCtx = createContext<{
   currentTheme: "light" | "dark";
   updateTheme: () => void;
-}>({ currentTheme: "light", updateTheme() {} });
+}>({ currentTheme: "dark", updateTheme() {} });
 
 export default function ThemeProvider({ children }: { children: ReactNode }) {
-  const [currentTheme, changeTheme] = useState<"light" | "dark">("light");
+  const [currentTheme, changeTheme] = useState<"light" | "dark">("dark");
 
   const updateDocumentClass = (theme: "light" | "dark") => {
     if (theme === "dark") {
+      document.documentElement.classList.remove("light");
       document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
 
       localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+      document.documentElement.style.colorScheme = "light";
 
       localStorage.setItem("theme", "light");
     }
@@ -23,7 +28,9 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 
   function updateTheme() {
     const newTheme = currentTheme === "light" ? "dark" : "light";
+
     updateDocumentClass(newTheme);
+
     changeTheme(newTheme);
   }
 
@@ -33,13 +40,10 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
       | "dark"
       | null;
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const systemPreferences = mediaQuery.matches ? "dark" : "light";
-    const theme = storageTheme ? storageTheme : systemPreferences;
+    const theme = storageTheme ? storageTheme : "light";
 
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    }
+    document.documentElement.classList.add(theme);
+    document.documentElement.style.colorScheme = theme;
 
     changeTheme(theme);
   }, []);
