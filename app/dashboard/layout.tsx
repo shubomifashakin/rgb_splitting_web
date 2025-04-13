@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <main className="flex h-dvh flex-col">
       <Navbar />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-grow justify-between gap-x-8 pl-6 lg:gap-x-16">
+      <div className="mx-auto flex w-full max-w-7xl flex-grow justify-between gap-x-8 pl-6">
         <Aside />
 
         <div className="h-full w-[1px] bg-muted"></div>

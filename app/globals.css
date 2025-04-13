@@ -73,10 +73,14 @@ body {
 
 @layer components {
   .btn-style {
-    @apply justify-normal transition-colors duration-150 ease-linear hover:bg-gradient-to-r hover:text-white;
+    @apply justify-normal transition-colors duration-300 ease-linear;
   }
 
   .rgb-gradient {
-    @apply hover:from-red-300 hover:via-green-300 hover:to-blue-300 dark:hover:from-red-600/80 dark:hover:via-green-600/80 dark:hover:to-blue-600/80;
+    @apply hover:bg-gradient-to-r hover:from-red-300 hover:via-green-300 hover:to-blue-300 hover:text-white dark:hover:from-red-600/80 dark:hover:via-green-600/80 dark:hover:to-blue-600/80;
+  }
+
+  .rgb-gradient-active {
+    @apply bg-gradient-to-r from-red-300 via-green-300 to-blue-300 dark:from-red-600/80 dark:via-green-600/80 dark:to-blue-600/80;
   }
 }

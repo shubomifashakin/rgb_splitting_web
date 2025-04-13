@@ -1,57 +1,51 @@
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { memo } from "react";
 
 const tiers = [
   {
-    name: "Basic",
-    price: 1,
+    name: "Free",
+    price: 0,
     badge: "Starter",
     description: "Perfect for testing and small projects",
-    features: [
-      "200 requests per month",
-      "2 requests per second",
-      "5 burst limit",
-    ],
+    features: ["200 requests per month", "Max Image size 10mb", "1 proc image"],
     color:
       "bg-gradient-to-br from-red-300 to-red-100 dark:from-red-600 dark:to-red-900",
-    buttonText: "Get Started",
     border: "border-red-400 shadow-lg",
   },
   {
-    name: "Starter",
+    name: "Pro",
     price: 3,
     badge: "Popular",
     description: "Ideal for growing applications",
     features: [
-      "600 requests per month",
-      "5 requests per second",
-      "10 burst limit",
+      "1000 requests per month",
+      "Max image size 20mb",
+      "3 proc image",
     ],
     color:
       "bg-gradient-to-br from-green-300 to-green-100 dark:from-green-600 dark:to-green-900",
-    buttonText: "Upgrade to Pro",
     popular: true,
     border: "border-green-400 shadow-lg",
   },
   {
-    name: "Pro",
+    name: "Executive",
     price: 7,
     badge: "Advanced",
     description: "For high-performance needs",
     features: [
-      "1,800 requests per month",
-      "15 requests per second",
-      "30 burst limit",
+      "2,500 requests per month",
+      "Max image size 50mb",
+      "3 proc image",
     ],
     color:
       "bg-gradient-to-br from-blue-300 to-blue-100 dark:from-blue-600 dark:to-blue-900",
-    buttonText: "Contact Sales",
     border: "border-blue-400 shadow-lg",
   },
 ];
 
-export function PricingTable({
+export const PricingTable = memo(function PricingTable({
   handleSelectPlan,
   selectedPlan,
 }: {
@@ -95,7 +89,10 @@ export function PricingTable({
               <CardContent className="p-6">
                 <ul className="space-y-4">
                   {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3">
+                    <li
+                      key={feature}
+                      className="flex items-center gap-3 text-sm"
+                    >
                       <Check className="h-5 w-5 flex-shrink-0 text-green-500" />
 
                       <span>{feature}</span>
@@ -109,4 +106,4 @@ export function PricingTable({
       </div>
     </div>
   );
-}
+});

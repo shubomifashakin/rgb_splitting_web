@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import "./globals.css";
+
 import { ClerkProvider } from "@clerk/nextjs";
 
 import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "@/components/Providers/ThemeProvider";
 
-import "./globals.css";
 import QueryProvider from "@/components/Providers/QueryClientProvider";
 
 const InterFont = Inter({
@@ -26,10 +27,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl={"/auth"}>
       <QueryProvider>
         <ThemeProvider>
           <html lang="en">
+            <head>
+              {/* <script
+                crossOrigin="anonymous"
+                src="//unpkg.com/react-scan/dist/auto.global.js"
+              ></script> */}
+            </head>
             <body className={`${InterFont.className} antialiased`}>
               {children}
               <Toaster />

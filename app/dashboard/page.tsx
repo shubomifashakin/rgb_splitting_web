@@ -1,28 +1,110 @@
-import { auth } from "@clerk/nextjs/server";
+"use client";
 
-import { ApiKeyTable } from "@/components/ui/apiTable";
+import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
+import { useQuery } from "@tanstack/react-query";
 
-import { apiKey } from "@/lib/types";
+import { Loader2, RefreshCw } from "lucide-react";
 
-export default async function Page() {
-  const { getToken } = await auth();
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-  const token = await getToken();
+import { apiKeyInfo } from "@/types";
 
-  //fetch the users tokens
-  const req = await fetch(
-    `https://71pqwiz46d.execute-api.us-east-1.amazonaws.com/prod/v1/keys/user1234`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+import { getUsersProjects } from "@/lib/dataService";
+
+export default function Page() {
+  const { getToken, userId } = useAuth();
+
+  const { data, status, error, isRefetching, refetch } = useQuery({
+    queryKey: ["applications", userId],
+
+    queryFn: async () => {
+      const token = await getToken();
+
+      if (!token) {
+        throw new Error("Authentication Failed");
+      }
+
+      return getUsersProjects(token);
     },
-  );
 
-  const apiKeys = (await req.json()) as apiKey[];
+    refetchOnWindowFocus: false,
+  });
+
   return (
-    <div>
-      <ApiKeyTable apiKeys={apiKeys} />
+    <div className="h-full w-full overflow-hidden">
+      {status === "pending" && (
+        <div>
+          <div className="flex items-center gap-x-2">
+            Loading <Loader2 size={16} className="animate-spin" />
+          </div>
+        </div>
+      )}
+
+      {status === "error" && (
+        <div className="max-w-[600px] space-y-4 rounded-md border p-4 text-center">
+          <h2 className="whitespace-break-spaces capitalize">
+            {error.message}
+          </h2>
+
+          <Button disabled={isRefetching} size={"lg"} onClick={() => refetch()}>
+            Try again&nbsp;
+            <RefreshCw className={`${isRefetching && "animate-spin"}`} />
+          </Button>
+        </div>
+      )}
+
+      {status === "success" && <Projects projects={data} />}
+    </div>
+  );
+}
+
+function Projects({ projects }: { projects: apiKeyInfo[] }) {
+  return (
+    <div className="grid h-full grid-cols-3 grid-rows-3 items-center justify-between gap-6 overflow-hidden">
+      {projects.slice(0, 9).map((project) => {
+        const isActive = project.sub_status.split("-")[0] === "active";
+
+        return (
+          <Link
+            key={project.projectId}
+            href={`/dashboard/${project.projectId}`}
+          >
+            <Card
+              className={`group flex h-[250px] flex-col overflow-hidden rounded-sm transition-colors duration-150 ${isActive ? "hover:border-green-300 dark:hover:border-green-800" : "hover:border-red-300 dark:hover:border-red-800"}`}
+            >
+              <div className="w-full basis-[65%]"></div>
+
+              <div
+                className={`flex-grow space-y-2 bg-muted p-4 ${isActive ? "group-hover:bg-green-300 dark:group-hover:bg-green-800" : "group-hover:bg-red-300 dark:group-hover:bg-red-800"}`}
+              >
+                <div className="flex items-center gap-x-4">
+                  <h1 className="font-semibold uppercase">
+                    {project.projectName.length > 20
+                      ? project.projectName.slice(0, 20).trim() + "..."
+                      : project.projectName}
+                  </h1>
+                </div>
+
+                <div className="flex items-center gap-x-2">
+                  <span
+                    className={
+                      "inline-block rounded-sm text-sm capitalize tracking-wide"
+                    }
+                  >
+                    {project.currentPlan}
+                  </span>
+
+                  <span
+                    className={`size-2 rounded-full ${isActive ? "bg-green-300 dark:bg-green-800" : "bg-red-300 dark:bg-red-800"} `}
+                  ></span>
+                </div>
+              </div>
+            </Card>
+          </Link>
+        );
+      })}
     </div>
   );
 }

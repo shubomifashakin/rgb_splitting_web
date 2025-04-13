@@ -15,14 +15,16 @@ export default function Navbar() {
 
   return (
     <nav className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between border-b p-6">
-      <div className="group flex items-center text-4xl font-extrabold lowercase">
-        <span className="text-red-300 dark:text-red-600/80">R</span>
-        <span className="text-green-300 dark:text-green-600/80">G</span>
-        <span className="text-blue-300 dark:text-blue-600/80">B</span>
-        <span className="rgb-gradient mt-2 bg-clip-text text-2xl transition-colors duration-150 ease-linear group-hover:bg-gradient-to-r group-hover:text-transparent">
-          split
-        </span>
-      </div>
+      <Link href={"/dashboard"}>
+        <div className="group flex items-center text-4xl font-extrabold lowercase">
+          <span className="text-red-300 dark:text-red-600/80">R</span>
+          <span className="text-green-300 dark:text-green-600/80">G</span>
+          <span className="text-blue-300 dark:text-blue-600/80">B</span>
+          <span className="rgb-gradient mt-2 bg-clip-text text-2xl transition-colors duration-150 ease-linear group-hover:bg-gradient-to-r group-hover:text-transparent">
+            reak
+          </span>
+        </div>
+      </Link>
 
       <div className="flex items-center gap-x-4">
         <Link
