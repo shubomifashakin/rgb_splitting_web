@@ -7,7 +7,7 @@ export function HeaderInfo({
 }) {
   return (
     <div className="space-y-0.5">
-      <h1 className="text-xl font-bold tracking-wide">{title}</h1>
+      <h1 className="text-xl font-bold">{title}</h1>
 
       <p className="text-sm text-muted-foreground">{description}</p>
     </div>

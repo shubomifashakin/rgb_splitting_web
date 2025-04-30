@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { useAuth } from "@clerk/nextjs";
@@ -11,6 +11,7 @@ import { Loader2Icon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { HeaderInfo } from "@/components/ui/headerInfo";
+import { ModalCtx } from "@/components/Providers/ModalProvider";
 
 import { toast } from "@/hooks/use-toast";
 
@@ -52,6 +53,8 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
     },
   });
 
+  const { openConfirmModal, closeModal } = useContext(ModalCtx);
+
   const { mutate: mutateDeleteProject, isPending: isDeleting } = useMutation({
     mutationKey: ["delete-project", params.projectId],
 
@@ -68,11 +71,12 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
     },
 
     onSuccess: () => {
-      console.log("Project deleted successfully");
+      closeModal();
       router.push("/dashboard");
     },
 
     onError: (error) => {
+      closeModal();
       toast({
         title: "Error",
         description: error.message,
@@ -92,7 +96,11 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
   function handleDeleteProject(e: React.FormEvent) {
     e.preventDefault();
 
-    mutateDeleteProject();
+    openConfirmModal({
+      title: "Delete Project",
+      description: "Are you sure you want to delete this project?",
+      onConfirm: () => mutateDeleteProject(),
+    });
   }
 
   return (
@@ -130,8 +138,8 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
         />
 
         <Button
-          disabled={isDeleting || isUpdating}
           variant={"destructive"}
+          disabled={isDeleting || isUpdating}
           className="flex items-center gap-x-2 rounded-sm"
         >
           Delete Application{" "}

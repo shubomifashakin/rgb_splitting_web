@@ -16,8 +16,6 @@ export default async function Page({
 
   const token = await getToken();
 
-  console.log("the token-->", token);
-
   const projects = await getProjectInfo(token!, projectId, { field: "apikey" });
 
   return (
@@ -27,7 +25,7 @@ export default async function Page({
         description="Find the API key for your project below."
       />
 
-      <ApiKeyInfo apiKey={projects.projectInfo[0].apiKey as string} />
+      <ApiKeyInfo apiKey={projects.projectInfo[0].apiKey} />
     </div>
   );
 }

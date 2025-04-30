@@ -1,5 +1,7 @@
 "use client";
 
+import { useContext } from "react";
+
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 
@@ -12,6 +14,7 @@ import { PLAN, PROJECT_STATUS } from "@/types";
 
 import { toast } from "@/hooks/use-toast";
 import { cancelSubscription } from "@/lib/dataService";
+import { ModalCtx } from "@/components/Providers/ModalProvider";
 
 export function PlanInfo({
   currentPlan,
@@ -30,6 +33,8 @@ export function PlanInfo({
   const projectId = params.projectId;
   const router = useRouter();
 
+  const { openConfirmModal, closeModal } = useContext(ModalCtx);
+
   const { getToken } = useAuth();
 
   const { mutate, isPending } = useMutation({
@@ -41,6 +46,7 @@ export function PlanInfo({
     },
 
     onSuccess: () => {
+      closeModal();
       toast({
         title: "Success",
         description: "Successfully cancelled subscription",
@@ -50,6 +56,8 @@ export function PlanInfo({
     },
 
     onError: (error) => {
+      closeModal();
+
       toast({
         title: "Error",
         description: error.message,
@@ -76,7 +84,7 @@ export function PlanInfo({
         <p>Billing Date</p>
 
         <p>
-          {currentPlan === PLAN.Free
+          {currentPlan === PLAN.Free || sub_status === PROJECT_STATUS.Inactive
             ? "N/A"
             : new Date(billingDate).toDateString()}
         </p>
@@ -86,7 +94,7 @@ export function PlanInfo({
         <p>Expiry Date</p>
 
         <p>
-          {currentPlan === PLAN.Free
+          {currentPlan === PLAN.Free || sub_status === PROJECT_STATUS.Inactive
             ? "N/A"
             : new Date(expiryDate).toDateString()}
         </p>
@@ -109,7 +117,13 @@ export function PlanInfo({
 
         <Button
           variant={"destructive"}
-          onClick={() => mutate()}
+          onClick={() =>
+            openConfirmModal({
+              onConfirm: mutate,
+              title: "Cancel Subscription",
+              description: "Are you sure you want to cancel your subcription?",
+            })
+          }
           disabled={sub_status === PROJECT_STATUS.Inactive || isPending}
           className="basis-1/2 rounded-sm disabled:cursor-not-allowed"
         >

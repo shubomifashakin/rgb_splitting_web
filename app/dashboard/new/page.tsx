@@ -86,7 +86,7 @@ function NewProjectForm() {
       projectName,
       selectedPlan,
       userId: user.id,
-      projectId: projectId ?? "",
+      projectId: projectId ? projectId : null,
       email: user.emailAddresses[0].emailAddress,
       fullName: `${user.firstName} ${user.lastName}`,
     });
@@ -94,7 +94,7 @@ function NewProjectForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-y-4">
-      <div className="space-y-1.5">
+      <div className="space-y-2">
         <InputLabel />
 
         <Input
@@ -102,6 +102,7 @@ function NewProjectForm() {
           maxLength={50}
           id="projectName"
           value={projectName}
+          disabled={oldProjectName ? true : false}
           onChange={(e) => setProjectName(e.target.value)}
         />
 
@@ -130,7 +131,7 @@ const BottomHalf = memo(function BottomHalf({
 }) {
   return (
     <>
-      <div className="space-y-4">
+      <div className="space-y-2">
         <Label htmlFor="Plans" className="flex items-center gap-x-2">
           Available Plans
         </Label>
@@ -142,9 +143,9 @@ const BottomHalf = memo(function BottomHalf({
       </div>
 
       <Button
-        disabled={isPending}
         type="submit"
-        className="btn-style rgb-gradient gap-x-1 self-end"
+        disabled={isPending}
+        className="btn-style rgb-gradient gap-x-1 self-end rounded-sm"
       >
         Continue to Checkout&nbsp;
         {isPending ? (

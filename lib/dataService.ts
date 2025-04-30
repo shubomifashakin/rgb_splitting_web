@@ -1,4 +1,4 @@
-import { apiKeyInfo, PLAN, PROJECT_STATUS } from "../types";
+import { projects, PLAN, PROJECT_STATUS } from "../types";
 
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_URL!;
 
@@ -15,7 +15,7 @@ export async function triggerPayment({
   email: string;
   userId: string;
   fullName?: string;
-  projectId?: string;
+  projectId?: string | null;
 }) {
   const req = await fetch(`${baseApiUrl}/v1/trigger-payment`, {
     method: "POST",
@@ -46,8 +46,14 @@ export async function triggerPayment({
   return data;
 }
 
-export async function getUsersProjects(token: string) {
-  const req = await fetch(`${baseApiUrl}/v1/projects`, {
+export async function getUsersProjects(token: string, query?: string) {
+  const url = new URL(`${baseApiUrl}/v1/projects`);
+
+  if (query) {
+    url.searchParams.append("query", query);
+  }
+
+  const req = await fetch(url.toString(), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -55,8 +61,9 @@ export async function getUsersProjects(token: string) {
     mode: "cors",
   });
 
-  const apiKeys = (await req.json()) as apiKeyInfo[];
-  return apiKeys;
+  const projects = (await req.json()) as projects;
+
+  return projects;
 }
 
 export async function getProjectInfo(
@@ -78,9 +85,7 @@ export async function getProjectInfo(
   });
 
   if (!req.ok) {
-    const error = await req.json();
-    console.log(error);
-    throw new Error("An error occurred");
+    throw new Error("Something went wrong.");
   }
 
   const data = (await req.json()) as {
@@ -145,7 +150,6 @@ export async function deleteProject(token: string, projectId: string) {
     throw new Error(error.Message || error.message || "Internal Server Error");
   }
 
-  console.log("hello world");
   const data = await req.json();
 
   return data;

@@ -16,8 +16,6 @@ export default async function Page({
 
   const token = await getToken();
 
-  console.log("the token-->", token);
-
   if (!token) {
     throw new Error("Authentication Failed");
   }
@@ -33,9 +31,7 @@ export default async function Page({
         description="Configure your settings for this application."
       />
 
-      <SettingsInfo
-        projectName={projects.projectInfo[0].projectName as string}
-      />
+      <SettingsInfo projectName={projects.projectInfo[0].projectName} />
     </div>
   );
 }

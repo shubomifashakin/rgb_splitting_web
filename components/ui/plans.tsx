@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 import { Check } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { memo } from "react";
 
 const tiers = [
   {
@@ -9,7 +11,11 @@ const tiers = [
     price: 0,
     badge: "Starter",
     description: "Perfect for testing and small projects",
-    features: ["200 requests per month", "Max Image size 10mb", "1 proc image"],
+    features: [
+      "200 requests per month",
+      "Max Image size 10mb",
+      "1 processed image",
+    ],
     color:
       "bg-gradient-to-br from-red-300 to-red-100 dark:from-red-600 dark:to-red-900",
     border: "border-red-400 shadow-lg",
@@ -22,7 +28,7 @@ const tiers = [
     features: [
       "1000 requests per month",
       "Max image size 20mb",
-      "3 proc image",
+      "3 processed images",
     ],
     color:
       "bg-gradient-to-br from-green-300 to-green-100 dark:from-green-600 dark:to-green-900",
@@ -37,7 +43,7 @@ const tiers = [
     features: [
       "2,500 requests per month",
       "Max image size 50mb",
-      "3 proc image",
+      "3 processed images",
     ],
     color:
       "bg-gradient-to-br from-blue-300 to-blue-100 dark:from-blue-600 dark:to-blue-900",
@@ -62,10 +68,10 @@ export const PricingTable = memo(function PricingTable({
             onClick={() => handleSelectPlan(tier.name)}
           >
             <Card
-              className={`relative ${selectedPlan === tier.name ? tier.border : ""} transition-colors duration-150`}
+              className={`relative ${selectedPlan === tier.name ? tier.border : ""} rounded-sm transition-colors duration-150`}
             >
               <CardHeader
-                className={`${tier.color} space-y-1 rounded-t-lg p-6`}
+                className={`${tier.color} space-y-1 rounded-t-sm p-6`}
               >
                 <Badge variant="secondary" className="mb-2 w-fit">
                   {tier.badge}

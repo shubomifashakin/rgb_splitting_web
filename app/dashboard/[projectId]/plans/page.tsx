@@ -5,8 +5,6 @@ import { PlanInfo } from "@/components/ui/PlansPage/planInfo";
 
 import { getProjectInfo } from "@/lib/dataService";
 
-import { PLAN } from "@/types";
-
 export default async function Page({
   params,
 }: {
@@ -17,8 +15,6 @@ export default async function Page({
   const { getToken } = await auth();
 
   const token = await getToken();
-
-  console.log("the token-->", token);
 
   if (!token) {
     throw new Error("Authentication Failed");
@@ -36,9 +32,9 @@ export default async function Page({
       <PlanInfo
         sub_status={projects.projectInfo[0].sub_status}
         projectName={projects.projectInfo[0].projectName}
-        currentPlan={projects.projectInfo[0].currentPlan as PLAN}
-        expiryDate={projects.projectInfo[0].nextPaymentDate as number}
-        billingDate={projects.projectInfo[0].currentBillingDate as number}
+        currentPlan={projects.projectInfo[0].currentPlan}
+        expiryDate={projects.projectInfo[0].nextPaymentDate}
+        billingDate={projects.projectInfo[0].currentBillingDate}
       />
     </div>
   );

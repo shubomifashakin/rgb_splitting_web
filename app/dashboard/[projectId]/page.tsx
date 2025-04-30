@@ -18,8 +18,6 @@ export default async function Page({
 
   const token = await getToken();
 
-  console.log("the token-->", token);
-
   if (!token) {
     throw new Error("Authentication Failed");
   }
@@ -27,8 +25,6 @@ export default async function Page({
   const projects = await getProjectInfo(token, projectId, {
     field: "gallery",
   });
-
-  console.log("found projects --->", projects);
 
   return (
     <div className="space-y-4">
@@ -43,12 +39,12 @@ export default async function Page({
             key={project.imageId}
             className="relative size-52 overflow-hidden"
           >
-            <Link href={`dashboard/${projectId}/image/${project.imageId}`}>
+            <Link href={`dashboard/${projectId}/${project.imageId}`}>
               <Image
                 fill
                 alt={project.imageId}
                 src={project.originalImageUrl}
-                className="rounded-lg object-cover"
+                className="rounded-sm border object-cover"
               />
             </Link>
           </div>

@@ -49,7 +49,7 @@ export default function Aside() {
   const filteredPaths = links.map((c) => c.path);
 
   return (
-    <aside className={`relative flex h-full flex-col justify-between py-4`}>
+    <aside className={`relative flex h-full flex-col justify-between py-6`}>
       <div className="flex w-full flex-col gap-y-6 overflow-hidden">
         {filteredPaths.includes(pathName) &&
           links.map((link, index) => {

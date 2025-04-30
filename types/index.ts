@@ -1,8 +1,11 @@
-export type apiKeyInfo = {
-  projectId: string;
-  projectName: string;
-  currentPlan: string;
-  sub_status: PROJECT_STATUS;
+export type projects = {
+  projects: {
+    projectId: string;
+    projectName: string;
+    currentPlan: string;
+    sub_status: PROJECT_STATUS;
+  }[];
+  nextKey?: object;
 };
 
 export enum PROJECT_STATUS {
