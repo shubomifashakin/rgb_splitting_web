@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { HeaderInfo } from "@/components/ui/headerInfo";
 
 import { getProjectInfo } from "@/lib/dataService";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -19,7 +20,7 @@ export default async function Page({
   const token = await getToken();
 
   if (!token) {
-    throw new Error("Authentication Failed");
+    redirect("/auth");
   }
 
   const projects = await getProjectInfo(token, projectId, {
@@ -42,7 +43,7 @@ export default async function Page({
             <Link href={`dashboard/${projectId}/${project.imageId}`}>
               <Image
                 fill
-                alt={project.imageId}
+                alt={"Gallery Image"}
                 src={project.originalImageUrl}
                 className="rounded-sm border object-cover"
               />

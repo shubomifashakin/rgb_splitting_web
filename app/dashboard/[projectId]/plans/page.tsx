@@ -4,6 +4,7 @@ import { HeaderInfo } from "@/components/ui/headerInfo";
 import { PlanInfo } from "@/components/ui/PlansPage/planInfo";
 
 import { getProjectInfo } from "@/lib/dataService";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -17,7 +18,7 @@ export default async function Page({
   const token = await getToken();
 
   if (!token) {
-    throw new Error("Authentication Failed");
+    redirect("/auth");
   }
 
   const projects = await getProjectInfo(token, projectId, { field: "plans" });

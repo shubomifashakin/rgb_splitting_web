@@ -28,7 +28,7 @@ const links = [
 ];
 
 const projectIdLinks = [
-  { name: "Gallery", path: "", icon: <Images size={16} /> },
+  { name: "Gallery", path: "/", icon: <Images size={16} /> },
   { name: "API Keys", path: "/api-keys", icon: <KeyRound size={16} /> },
   {
     name: "Plans & Billing",

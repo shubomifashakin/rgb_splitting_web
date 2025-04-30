@@ -4,6 +4,7 @@ import { HeaderInfo } from "@/components/ui/headerInfo";
 import { ApiKeyInfo } from "@/components/ui/ApiKeysPage/apiKeyInfo";
 
 import { getProjectInfo } from "@/lib/dataService";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -16,7 +17,11 @@ export default async function Page({
 
   const token = await getToken();
 
-  const projects = await getProjectInfo(token!, projectId, { field: "apikey" });
+  if (!token) {
+    redirect("/auth");
+  }
+
+  const projects = await getProjectInfo(token, projectId, { field: "apikey" });
 
   return (
     <div className="space-y-4">
