@@ -174,3 +174,35 @@ export async function cancelSubscription(token: string, projectId: string) {
 
   return data;
 }
+
+export async function getProcessedImages(
+  token: string,
+  projectId: string,
+  imageId: string,
+) {
+  console.log("projectId", projectId, "imageId", imageId);
+
+  const req = await fetch(
+    `${baseApiUrl}/v1/${projectId}/web/image/${imageId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!req.ok) {
+    throw new Error(`An error occurred ${req.status}`);
+  }
+
+  const res = await req.json();
+
+  return res as {
+    createdAt: number;
+    imageId: string;
+    projectId: string;
+    originalImageUrl: string;
+    results: { channels: string; grain: number; url: string }[];
+  };
+}
