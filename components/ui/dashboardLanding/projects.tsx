@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -15,8 +15,13 @@ import { projects } from "@/types";
 export function Projects({ projects }: { projects: projects }) {
   const pathname = usePathname();
   const { replace } = useRouter();
+  const searchParams = useSearchParams();
 
-  const [prevSearch, setPrevSearch] = useState<object[]>([]);
+  const [prevSearch, setPrevSearch] = useState<object[]>(function () {
+    const prevSearch = searchParams.get("history");
+
+    return prevSearch ? JSON.parse(decodeURIComponent(prevSearch)) : [];
+  });
 
   function handleNext() {
     if (!projects?.nextKey) return;
@@ -28,6 +33,11 @@ export function Projects({ projects }: { projects: projects }) {
     setParams.set(
       "query",
       encodeURIComponent(JSON.stringify(projects.nextKey)),
+    );
+
+    setParams.set(
+      "history",
+      encodeURIComponent(JSON.stringify([...prevSearch, projects.nextKey])),
     );
 
     replace(`${pathname}?${setParams.toString()}`);
@@ -46,11 +56,26 @@ export function Projects({ projects }: { projects: projects }) {
     //remove the last item from the array
     setPrevSearch((current) => current.slice(0, current.length - 1));
 
+    //if there is a query string,
     if (queryString) {
       replace(`${pathname}?${setParams.toString()}`);
 
+      setParams.set(
+        "history",
+        encodeURIComponent(
+          JSON.stringify([...prevSearch.slice(0, prevSearch.length - 1)]),
+        ),
+      );
+
       return;
     }
+
+    setParams.set(
+      "history",
+      encodeURIComponent(
+        JSON.stringify([...prevSearch.slice(0, prevSearch.length - 1)]),
+      ),
+    );
 
     replace(`${pathname}`);
   }
@@ -107,7 +132,7 @@ export function Projects({ projects }: { projects: projects }) {
         {prevSearch.length ? (
           <Button
             onClick={handlePrevious}
-            className={`btn-style rgb-gradient items-center justify-start rounded-sm transition-colors`}
+            className={`items-center justify-start rounded-sm transition-colors`}
           >
             <ChevronLeft /> Previous
           </Button>
@@ -116,7 +141,7 @@ export function Projects({ projects }: { projects: projects }) {
         {projects.nextKey && (
           <Button
             onClick={handleNext}
-            className={`btn-style rgb-gradient items-center justify-start rounded-sm transition-colors`}
+            className={`items-center justify-start rounded-sm transition-colors`}
           >
             Next <ChevronRight />
           </Button>
