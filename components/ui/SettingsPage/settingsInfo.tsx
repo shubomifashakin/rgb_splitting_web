@@ -122,7 +122,7 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
 
         <Button
           disabled={newProjectName === projectName || isUpdating || isDeleting}
-          className="rgb-gradient btn-style flex items-center gap-x-2 rounded-sm"
+          className="flex items-center gap-x-2 rounded-sm"
         >
           Save Changes {isUpdating && <Loader2Icon className="animate-spin" />}
         </Button>

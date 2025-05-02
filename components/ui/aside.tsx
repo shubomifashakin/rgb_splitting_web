@@ -57,7 +57,7 @@ export default function Aside() {
               <Button
                 asChild
                 key={index}
-                className={`btn-style rgb-gradient rounded-sm transition-colors ${pathName === link.path ? "rgb-gradient-active text-white" : ""}`}
+                className={`rounded-sm transition-colors ${pathName === link.path ? "rgb-gradient-active text-white" : ""}`}
                 variant={"default"}
               >
                 <Link
@@ -83,7 +83,7 @@ export default function Aside() {
               <Button
                 asChild
                 key={index}
-                className={`btn-style rgb-gradient justify-start rounded-sm transition-colors ${pathName === fullPathName ? "rgb-gradient-active text-white" : ""}`}
+                className={`justify-start rounded-sm transition-colors ${pathName === fullPathName ? "rgb-gradient-active text-white" : ""}`}
                 variant={"default"}
               >
                 <Link href={fullPathName} className="flex gap-1 rounded-lg">

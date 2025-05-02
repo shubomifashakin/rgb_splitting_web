@@ -41,7 +41,7 @@ export function ApiKeyInfo({ apiKey }: { apiKey: string }) {
 
       <Button
         size={"icon"}
-        className="rgb-gradient btn-style group relative rounded-sm"
+        className="group relative rounded-sm"
         variant={"default"}
         onClick={handleCopy}
       >

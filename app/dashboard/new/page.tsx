@@ -145,7 +145,7 @@ const BottomHalf = memo(function BottomHalf({
       <Button
         type="submit"
         disabled={isPending}
-        className="btn-style rgb-gradient gap-x-1 self-end rounded-sm"
+        className="gap-x-1 self-end rounded-sm"
       >
         Continue to Checkout&nbsp;
         {isPending ? (

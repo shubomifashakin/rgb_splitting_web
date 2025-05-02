@@ -24,7 +24,7 @@ export default async function Page({
   const projects = await getProjectInfo(token, projectId, { field: "plans" });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <HeaderInfo
         title="Plans & Billing"
         description="Your subscription plan and billing details."

@@ -36,7 +36,7 @@ export default function Navbar() {
 
         <Button
           onClick={updateTheme}
-          className="[&_svg]:size-5"
+          className="transition-colors duration-150 hover:text-white [&_svg]:size-5"
           variant={"ghost"}
         >
           {currentTheme === "dark" ? <Moon /> : <Sun />}

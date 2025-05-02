@@ -103,7 +103,7 @@ export function PlanInfo({
       <div className="mt-4 flex items-center justify-between gap-6">
         <Button
           asChild
-          className="rgb-gradient btn-style basis-1/2 rounded-sm disabled:cursor-not-allowed"
+          className="basis-1/2 rounded-sm disabled:cursor-not-allowed"
         >
           <Link
             href={{

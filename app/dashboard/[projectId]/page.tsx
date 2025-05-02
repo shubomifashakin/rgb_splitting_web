@@ -40,7 +40,7 @@ export default async function Page({
             key={project.imageId}
             className="relative size-52 overflow-hidden"
           >
-            <Link href={`dashboard/${projectId}/${project.imageId}`}>
+            <Link href={`${projectId}/${project.imageId}`}>
               <Image
                 fill
                 alt={"Gallery Image"}
