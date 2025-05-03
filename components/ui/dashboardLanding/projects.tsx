@@ -82,8 +82,8 @@ export function Projects({ projects }: { projects: projects }) {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="grid flex-grow grid-cols-3 grid-rows-3 items-center justify-between gap-6 overflow-hidden">
-        {projects.projects.slice(0, 9).map((project) => {
+      <div className="grid flex-grow grid-cols-4 grid-rows-3 items-center justify-between gap-6 overflow-hidden">
+        {projects.projects.map((project) => {
           const isActive = project.sub_status.split("-")[0] === "active";
 
           return (
