@@ -1,84 +1,19 @@
 "use client";
 
-import { useState } from "react";
-
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Card } from "../card";
 import { Button } from "../button";
 
-import { projects } from "@/types";
+import { Projects as ProjectsType } from "@/types";
+import { usePaginate } from "@/hooks/usePaginate";
 
-export function Projects({ projects }: { projects: projects }) {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const searchParams = useSearchParams();
-
-  const [prevSearch, setPrevSearch] = useState<object[]>(function () {
-    const prevSearch = searchParams.get("history");
-
-    return prevSearch ? JSON.parse(decodeURIComponent(prevSearch)) : [];
+export function Projects({ projects }: { projects: ProjectsType }) {
+  const { handleNext, handlePrevious, prevSearch } = usePaginate({
+    nextKey: projects.nextKey,
   });
-
-  function handleNext() {
-    if (!projects?.nextKey) return;
-
-    setPrevSearch((current) => [...current, projects.nextKey!]);
-
-    const setParams = new URLSearchParams();
-
-    setParams.set(
-      "query",
-      encodeURIComponent(JSON.stringify(projects.nextKey)),
-    );
-
-    setParams.set(
-      "history",
-      encodeURIComponent(JSON.stringify([...prevSearch, projects.nextKey])),
-    );
-
-    replace(`${pathname}?${setParams.toString()}`);
-  }
-
-  function handlePrevious() {
-    if (!prevSearch.length) return;
-
-    const setParams = new URLSearchParams();
-
-    //go back 1 item from the last item
-    const queryString = prevSearch[prevSearch.length - 1 - 1];
-
-    setParams.set("query", encodeURIComponent(JSON.stringify(queryString)));
-
-    //remove the last item from the array
-    setPrevSearch((current) => current.slice(0, current.length - 1));
-
-    //if there is a query string,
-    if (queryString) {
-      replace(`${pathname}?${setParams.toString()}`);
-
-      setParams.set(
-        "history",
-        encodeURIComponent(
-          JSON.stringify([...prevSearch.slice(0, prevSearch.length - 1)]),
-        ),
-      );
-
-      return;
-    }
-
-    setParams.set(
-      "history",
-      encodeURIComponent(
-        JSON.stringify([...prevSearch.slice(0, prevSearch.length - 1)]),
-      ),
-    );
-
-    replace(`${pathname}`);
-  }
 
   return (
     <div className="flex h-full w-full flex-col">

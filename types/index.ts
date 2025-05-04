@@ -1,4 +1,4 @@
-export type projects = {
+export type Projects = {
   projects: {
     projectId: string;
     projectName: string;
@@ -20,3 +20,21 @@ export enum PLAN {
   Pro = "pro",
   Executive = "executive",
 }
+
+export type ProjectInfo = {
+  projectInfo: {
+    projectName: string;
+    sub_status: PROJECT_STATUS;
+
+    imageId: string;
+    createdAt: number;
+    originalImageUrl: string;
+
+    currentPlan: PLAN;
+    nextPaymentDate: number;
+    currentBillingDate: number;
+
+    apiKey: string;
+  }[];
+  nextKey?: object;
+};

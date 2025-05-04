@@ -1,4 +1,4 @@
-import { projects, PLAN, PROJECT_STATUS } from "../types";
+import { Projects, ProjectInfo } from "../types";
 
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_URL!;
 
@@ -61,7 +61,7 @@ export async function getUsersProjects(token: string, query?: string) {
     mode: "cors",
   });
 
-  const projects = (await req.json()) as projects;
+  const projects = (await req.json()) as Projects;
 
   return projects;
 }
@@ -71,11 +71,16 @@ export async function getProjectInfo(
   projectId: string,
   searchParams: {
     field: "plans" | "apikey" | "gallery" | "settings";
+    query?: string;
   },
 ) {
   const url = new URL(`${baseApiUrl}/v1/${projectId}`);
 
   url.searchParams.append("field", searchParams.field);
+
+  if (searchParams.query) {
+    url.searchParams.append("query", searchParams.query);
+  }
 
   const req = await fetch(url.toString(), {
     headers: {
@@ -88,22 +93,7 @@ export async function getProjectInfo(
     throw new Error("Something went wrong.");
   }
 
-  const data = (await req.json()) as {
-    projectInfo: {
-      projectName: string;
-      sub_status: PROJECT_STATUS;
-
-      imageId: string;
-      createdAt: number;
-      originalImageUrl: string;
-
-      currentPlan: PLAN;
-      nextPaymentDate: number;
-      currentBillingDate: number;
-
-      apiKey: string;
-    }[];
-  };
+  const data = (await req.json()) as ProjectInfo;
 
   return data;
 }
@@ -193,7 +183,9 @@ export async function getProcessedImages(
   );
 
   if (!req.ok) {
-    throw new Error(`An error occurred ${req.status}`);
+    const error = await req.json();
+
+    throw new Error(error.Message || error.message || "Internal Server Error");
   }
 
   const res = await req.json();
