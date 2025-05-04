@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       ),
     ],
     formats: ["image/webp"],
-    minimumCacheTTL: 0, //TODO: ENABLE CACHE
+    minimumCacheTTL: 60 * 60 * 24 * 7, //TODO: ENABLE CACHE
     qualities: [25, 60],
   },
 };
