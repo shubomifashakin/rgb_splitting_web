@@ -23,8 +23,6 @@ export default async function Page({
 
   const data = await getProcessedImages(token, projectId, imageId[0]);
 
-  console.log(data);
-
   return (
     <div className="space-y-4">
       <HeaderInfo
@@ -32,12 +30,17 @@ export default async function Page({
         description="Here are the original & processed versions of your image."
       />
 
-      <div className="flex w-full flex-wrap gap-8">
+      <div className="flex w-full flex-wrap justify-between gap-8">
         <div
           key={data.originalImageUrl}
           className="relative size-52 overflow-hidden rounded-sm border"
         >
-          <Image src={data.originalImageUrl} alt="Original Image" fill />
+          <Image
+            fill
+            alt="Original Image"
+            className="object-cover"
+            src={data.originalImageUrl}
+          />
         </div>
 
         {data.results.map((result) => (
@@ -46,9 +49,11 @@ export default async function Page({
             className="relative size-52 overflow-hidden rounded-sm border"
           >
             <Image
-              src={result.url}
-              alt={`Processed Image with channels ${result.channels} and grain ${result.grain}`}
               fill
+              src={result.url}
+              className="object-cover"
+              alt={`Processed Image with channels ${result.channels} and grain ${result.grain}`}
+              priority
             />
           </div>
         ))}
