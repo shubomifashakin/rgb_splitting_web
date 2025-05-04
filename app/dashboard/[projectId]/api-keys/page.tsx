@@ -1,10 +1,11 @@
+import { redirect } from "next/navigation";
+
 import { auth } from "@clerk/nextjs/server";
 
 import { HeaderInfo } from "@/components/ui/headerInfo";
 import { ApiKeyInfo } from "@/components/ui/ApiKeysPage/apiKeyInfo";
 
 import { getProjectInfo } from "@/lib/dataService";
-import { redirect } from "next/navigation";
 
 export default async function Page({
   params,

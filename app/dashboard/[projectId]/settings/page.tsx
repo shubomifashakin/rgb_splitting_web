@@ -1,10 +1,11 @@
+import { redirect } from "next/navigation";
+
 import { auth } from "@clerk/nextjs/server";
 
 import { HeaderInfo } from "@/components/ui/headerInfo";
 import { SettingsInfo } from "@/components/ui/SettingsPage/settingsInfo";
 
 import { getProjectInfo } from "@/lib/dataService";
-import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
