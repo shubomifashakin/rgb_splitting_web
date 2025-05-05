@@ -21,9 +21,8 @@ export default function LandingPage() {
                   Deconstruct. Reconstruct.
                 </h1>
 
-                <p className="mx-auto max-w-[700px] text-sm text-muted-foreground md:text-base">
-                  Simple API to split your images into different RGB channels
-                  and apply grain effects.
+                <p className="mx-auto max-w-[700px] text-muted-foreground">
+                  Image processing simplified for developers and creators.
                 </p>
               </div>
 
