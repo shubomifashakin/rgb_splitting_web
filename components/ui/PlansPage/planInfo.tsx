@@ -15,6 +15,7 @@ import { PLAN, PROJECT_STATUS } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { cancelSubscription } from "@/lib/dataService";
 import { ModalCtx } from "@/components/Providers/ModalProvider";
+import { Ban, CircleFadingArrowUp } from "lucide-react";
 
 export function PlanInfo({
   currentPlan,
@@ -111,7 +112,7 @@ export function PlanInfo({
               query: { projectId, projectName },
             }}
           >
-            Upgrade
+            Upgrade <CircleFadingArrowUp />
           </Link>
         </Button>
 
@@ -128,7 +129,7 @@ export function PlanInfo({
           disabled={sub_status === PROJECT_STATUS.Inactive || isPending}
           className="basis-1/2 rounded-sm disabled:cursor-not-allowed"
         >
-          Cancel
+          Cancel <Ban />
         </Button>
       </div>
     </div>

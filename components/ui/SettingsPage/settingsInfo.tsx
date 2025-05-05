@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
 
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, Save, Trash } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -125,7 +125,8 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
           disabled={newProjectName === projectName || isUpdating || isDeleting}
           className="flex items-center gap-x-2 rounded-sm"
         >
-          Save Changes {isUpdating && <Loader2Icon className="animate-spin" />}
+          Save Changes{" "}
+          {isUpdating ? <Loader2Icon className="animate-spin" /> : <Save />}
         </Button>
       </form>
 
@@ -145,7 +146,7 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
           className="flex items-center gap-x-2 rounded-sm"
         >
           Delete Application{" "}
-          {isDeleting && <Loader2Icon className="animate-spin" />}
+          {isDeleting ? <Loader2Icon className="animate-spin" /> : <Trash />}
         </Button>
       </form>
     </div>

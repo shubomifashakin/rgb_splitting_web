@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useCallback, useState } from "react";
 
-import { Loader2Icon } from "lucide-react";
+import { Ban, Check, Loader2Icon } from "lucide-react";
 
 import { Button } from "../ui/button";
 import { HeaderInfo } from "../ui/headerInfo";
@@ -65,7 +65,11 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
                 className="flex basis-1/2 items-center gap-x-2 rounded-sm disabled:cursor-not-allowed"
               >
                 Confirm{" "}
-                {modalIsLoading && <Loader2Icon className="animate-spin" />}
+                {modalIsLoading ? (
+                  <Loader2Icon className="animate-spin" />
+                ) : (
+                  <Check />
+                )}
               </Button>
 
               <Button
@@ -74,7 +78,7 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
                 disabled={modalIsLoading}
                 className="basis-1/2 rounded-sm disabled:cursor-not-allowed"
               >
-                Cancel
+                Cancel <Ban />
               </Button>
             </div>
           </div>
