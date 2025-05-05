@@ -6,14 +6,14 @@ import Logo from "@/components/ui/Logo";
 export default function LandingPage() {
   return (
     <div className="flex h-dvh flex-col">
-      <header className="border-b px-4 py-6 md:px-6">
+      <header className="z-10 border-b px-4 py-6 md:px-6">
         <div className="flex items-center justify-between">
           <Logo />
         </div>
       </header>
 
-      <main className="flex flex-grow items-center justify-center">
-        <section className="flex w-full items-center justify-center py-12 md:py-24 lg:py-32">
+      <main className="relative flex flex-grow items-center justify-center">
+        <section className="z-10 flex w-full items-center justify-center py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -41,6 +41,10 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+
+        <div className="absolute left-32 top-20 h-[70px] w-[70px] -translate-x-1/2 -translate-y-1/2 bg-red-600 blur-3xl dark:hidden"></div>
+        <div className="absolute top-3/4 h-[150px] w-[70px] -translate-x-1/2 -translate-y-1/2 bg-green-600 blur-3xl dark:hidden"></div>
+        <div className="absolute right-20 top-1/2 h-[100px] w-[120px] -translate-x-1/2 -translate-y-1/2 bg-blue-600 blur-3xl dark:hidden"></div>
       </main>
 
       <footer className="border-t px-4 py-6 md:px-6">
