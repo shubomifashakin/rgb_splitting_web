@@ -52,7 +52,7 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
         <div
           className={`absolute inset-0 z-[100] flex h-full w-full items-center justify-center bg-background/85 transition-opacity duration-200`}
         >
-          <div className="flex max-w-[400px] flex-col gap-y-4 rounded-sm border bg-background p-4">
+          <div className="flex min-w-[400px] max-w-[600px] flex-col gap-y-4 rounded-sm border bg-background p-4">
             <HeaderInfo
               title={modalConfig?.title as string}
               description={modalConfig?.description as string}
