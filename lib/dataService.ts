@@ -57,8 +57,6 @@ export async function getUsersProjects(token: string, query?: string) {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    cache: "force-cache",
-    mode: "cors",
   });
 
   const projects = (await req.json()) as Projects;
