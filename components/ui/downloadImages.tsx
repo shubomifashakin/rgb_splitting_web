@@ -14,7 +14,7 @@ export function DownloadImages({ images }: { images: ProcessedImages }) {
   async function download() {
     const zip = new JSZip();
 
-    const folder = zip.folder("images");
+    const folder = zip.folder(`images-${images.imageId}`);
 
     const originalImage = await fetch(images.originalImageUrl);
     const originalBlob = await originalImage.blob();
@@ -33,7 +33,7 @@ export function DownloadImages({ images }: { images: ProcessedImages }) {
 
     const link = document.createElement("a");
     link.href = URL.createObjectURL(archive);
-    link.download = "images.zip";
+    link.download = `images-${images.imageId}.zip`;
     link.click();
   }
 
