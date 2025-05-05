@@ -66,6 +66,7 @@ export function Projects({ projects }: { projects: ProjectsType }) {
       <div className="flex justify-end gap-x-6">
         {prevSearch.length ? (
           <Button
+            title="Previous"
             onClick={handlePrevious}
             className={`items-center justify-start rounded-sm transition-colors`}
           >
@@ -75,6 +76,7 @@ export function Projects({ projects }: { projects: ProjectsType }) {
 
         {projects.nextKey && (
           <Button
+            title="Next"
             onClick={handleNext}
             className={`items-center justify-start rounded-sm transition-colors`}
           >

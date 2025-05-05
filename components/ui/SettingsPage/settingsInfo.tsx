@@ -121,6 +121,7 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
         </div>
 
         <Button
+          title="Update Project Name"
           disabled={newProjectName === projectName || isUpdating || isDeleting}
           className="flex items-center gap-x-2 rounded-sm"
         >
@@ -138,6 +139,7 @@ export function SettingsInfo({ projectName }: { projectName: string }) {
         />
 
         <Button
+          title="Delete Project"
           variant={"destructive"}
           disabled={isDeleting || isUpdating}
           className="flex items-center gap-x-2 rounded-sm"

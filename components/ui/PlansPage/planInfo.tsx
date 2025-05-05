@@ -116,6 +116,7 @@ export function PlanInfo({
         </Button>
 
         <Button
+          title="Cancel Subscription"
           variant={"destructive"}
           onClick={() =>
             openConfirmModal({

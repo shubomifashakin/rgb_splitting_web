@@ -57,7 +57,7 @@ export function DownloadImages({ images }: { images: ProcessedImages }) {
   });
 
   return (
-    <Button onClick={() => mutate()} disabled={isPending}>
+    <Button title="Download" onClick={() => mutate()} disabled={isPending}>
       Download {isPending ? <Loader2 className="animate-spin" /> : <Download />}
     </Button>
   );

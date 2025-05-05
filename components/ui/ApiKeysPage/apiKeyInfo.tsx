@@ -41,6 +41,7 @@ export function ApiKeyInfo({ apiKey }: { apiKey: string }) {
 
       <Button
         size={"icon"}
+        title="Copy API Key"
         className="group relative rounded-sm"
         variant={"default"}
         onClick={handleCopy}

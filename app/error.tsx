@@ -21,8 +21,9 @@ export default function Error({
         <h2 className="whitespace-break-spaces capitalize">{error.message}</h2>
 
         <Button
-          disabled={isPending}
           size={"lg"}
+          title="Try Again"
+          disabled={isPending}
           onClick={() =>
             startTransition(() => {
               router.refresh();
