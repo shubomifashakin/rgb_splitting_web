@@ -1,4 +1,4 @@
-import { Projects, ProjectInfo } from "../types";
+import { Projects, ProjectInfo, ProcessedImages } from "../types";
 
 const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_URL!;
 
@@ -190,11 +190,5 @@ export async function getProcessedImages(
 
   const res = await req.json();
 
-  return res as {
-    createdAt: number;
-    imageId: string;
-    projectId: string;
-    originalImageUrl: string;
-    results: { channels: string; grain: number; url: string }[];
-  };
+  return res as ProcessedImages;
 }

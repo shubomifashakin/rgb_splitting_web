@@ -38,3 +38,11 @@ export type ProjectInfo = {
   }[];
   nextKey?: object;
 };
+
+export type ProcessedImages = {
+  createdAt: number;
+  imageId: string;
+  projectId: string;
+  originalImageUrl: string;
+  results: { channels: string; grain: number; url: string }[];
+};

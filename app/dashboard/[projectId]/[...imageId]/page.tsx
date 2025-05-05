@@ -6,6 +6,8 @@ import { HeaderInfo } from "@/components/ui/headerInfo";
 
 import { getProcessedImages } from "@/lib/dataService";
 
+import { DownloadImages } from "@/components/ui/downloadImages";
+
 export default async function Page({
   params,
 }: {
@@ -33,7 +35,7 @@ export default async function Page({
       <div className="flex w-full flex-wrap justify-between gap-8">
         <div
           key={data.originalImageUrl}
-          className="relative size-52 overflow-hidden rounded-sm border"
+          className="relative aspect-square w-full overflow-hidden rounded-sm border md:size-52"
         >
           <Image
             fill
@@ -46,7 +48,7 @@ export default async function Page({
         {data.results.map((result) => (
           <div
             key={result.url}
-            className="relative size-52 overflow-hidden rounded-sm border"
+            className="relative aspect-square w-full overflow-hidden rounded-sm border md:size-52"
           >
             <Image
               fill
@@ -58,6 +60,8 @@ export default async function Page({
           </div>
         ))}
       </div>
+
+      <DownloadImages images={data} />
     </div>
   );
 }
