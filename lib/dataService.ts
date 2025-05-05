@@ -32,7 +32,7 @@ export async function triggerPayment({
   if (!req.ok) {
     const error = await req.json();
 
-    throw new Error(error.message);
+    throw new Error(error.message || "Internal Server Error");
   }
 
   const data = (await req.json()) as {
@@ -58,6 +58,12 @@ export async function getUsersProjects(token: string, query?: string) {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!req.ok) {
+    const error = await req.json();
+
+    throw new Error(error.message || "Internal Server Error");
+  }
 
   const projects = (await req.json()) as Projects;
 
@@ -88,7 +94,9 @@ export async function getProjectInfo(
   });
 
   if (!req.ok) {
-    throw new Error("Something went wrong.");
+    const error = await req.json();
+
+    throw new Error(error.message || "Internal Server Error");
   }
 
   const data = (await req.json()) as ProjectInfo;
@@ -115,7 +123,7 @@ export async function updateProjectName(
   if (!req.ok) {
     const error = await req.json();
 
-    throw new Error(error.Message || error.message || "Internal Server Error");
+    throw new Error(error.message || "Internal Server Error");
   }
 
   const data = await req.json();
@@ -135,7 +143,7 @@ export async function deleteProject(token: string, projectId: string) {
   if (!req.ok) {
     const error = await req.json();
 
-    throw new Error(error.Message || error.message || "Internal Server Error");
+    throw new Error(error.message || "Internal Server Error");
   }
 
   const data = await req.json();
@@ -155,7 +163,7 @@ export async function cancelSubscription(token: string, projectId: string) {
   if (!req.ok) {
     const error = await req.json();
 
-    throw new Error(error.Message || error.message || "Internal Server Error");
+    throw new Error(error.message || "Internal Server Error");
   }
 
   const data = await req.json();
@@ -183,7 +191,7 @@ export async function getProcessedImages(
   if (!req.ok) {
     const error = await req.json();
 
-    throw new Error(error.Message || error.message || "Internal Server Error");
+    throw new Error(error.message || "Internal Server Error");
   }
 
   const res = await req.json();

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 import { auth } from "@clerk/nextjs/server";
 
@@ -20,7 +21,7 @@ export default async function Page({
   const token = await getToken();
 
   if (!token) {
-    throw new Error("Authentication Failed");
+    redirect("/auth");
   }
 
   const data = await getProcessedImages(token, projectId, imageId[0]);
