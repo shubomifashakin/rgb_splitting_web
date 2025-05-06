@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 
+import { redirect } from "next/navigation";
+
 import { auth } from "@clerk/nextjs/server";
 
 import { Projects } from "@/components/ui/dashboardLanding/projects";
@@ -18,7 +20,7 @@ export default async function Page({
   const token = await getToken();
 
   if (!token) {
-    throw new Error("Authentication Failed");
+    redirect("/auth");
   }
 
   const data = await getUsersProjects(token, query);
