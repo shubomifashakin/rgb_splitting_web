@@ -5,12 +5,13 @@ import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
+import { PaymentPlan } from "@/types";
+
 const tiers = [
   {
     name: "Free",
-    price: 0,
     badge: "Starter",
-    description: "Perfect for testing and small projects",
+    description: "Perfect for testing and small applications",
     features: [
       "200 requests per month",
       "Max Image size 10mb",
@@ -22,7 +23,6 @@ const tiers = [
   },
   {
     name: "Pro",
-    price: 3,
     badge: "Popular",
     description: "Ideal for growing applications",
     features: [
@@ -37,7 +37,6 @@ const tiers = [
   },
   {
     name: "Executive",
-    price: 7,
     badge: "Advanced",
     description: "For high-performance needs",
     features: [
@@ -52,11 +51,13 @@ const tiers = [
 ];
 
 export const PricingTable = memo(function PricingTable({
-  handleSelectPlan,
+  plans,
   selectedPlan,
+  handleSelectPlan,
 }: {
-  handleSelectPlan: (plan: string) => void;
+  plans: PaymentPlan[];
   selectedPlan: string | null;
+  handleSelectPlan: (plan: string) => void;
 }) {
   return (
     <div>
@@ -81,7 +82,12 @@ export const PricingTable = memo(function PricingTable({
                   <h3 className="text-2xl font-bold">{tier.name}</h3>
 
                   <div className="text-right">
-                    <span className="text-2xl font-bold">${tier.price}</span>
+                    <span className="text-2xl font-bold">
+                      $
+                      {tier.name === "Free"
+                        ? 0
+                        : plans.find((plan) => plan.name === tier.name)?.amount}
+                    </span>
 
                     <span className="text-muted-foreground">/mo</span>
                   </div>
