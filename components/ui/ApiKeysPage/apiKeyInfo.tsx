@@ -48,7 +48,7 @@ export function ApiKeyInfo({ apiKey }: { apiKey: string }) {
       >
         <Copy size={16} />
 
-        <p className="pointer-events-none invisible absolute -top-10 rounded-sm bg-primary px-1.5 py-0.5 text-xs opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
+        <p className="pointer-events-none invisible absolute -top-10 rounded-sm bg-primary px-1.5 py-0.5 text-xs text-white opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100 dark:text-black">
           Copy
         </p>
       </Button>
