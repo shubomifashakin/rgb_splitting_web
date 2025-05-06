@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
         <div className="h-full w-[1px] bg-muted"></div>
 
-        <div className="h-full flex-grow overflow-auto py-4 pr-8 2xl:pr-0">
+        <div className="h-full flex-grow overflow-auto py-6 pr-8 2xl:pr-0">
           {children}
         </div>
       </div>
