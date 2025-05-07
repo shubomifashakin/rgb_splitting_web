@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+
 import { ArrowRight } from "lucide-react";
+
 import Logo from "@/components/ui/Logo";
+import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   return (
@@ -36,6 +38,14 @@ export default function LandingPage() {
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
+
+                {/* TODO: Add documentation link */}
+                <a
+                  href=""
+                  className="rgb-gradient relative block bg-clip-text text-sm underline transition-colors duration-150 hover:bg-gradient-to-r hover:text-transparent"
+                >
+                  View Documentation
+                </a>
               </div>
             </div>
           </div>
