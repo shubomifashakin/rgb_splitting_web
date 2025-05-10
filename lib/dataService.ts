@@ -179,7 +179,7 @@ export async function getProcessedImages(
   console.log("projectId", projectId, "imageId", imageId);
 
   const req = await fetch(
-    `${baseApiUrl}/v1/${projectId}/web/image/${imageId}`,
+    `${baseApiUrl}/v1/${projectId}/web/broken/${imageId}`,
     {
       headers: {
         "Content-Type": "application/json",
